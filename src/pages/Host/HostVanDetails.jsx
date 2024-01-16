@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 
 const HostVanDetails = () => {
 	const [van, setVan] = useState(null);
@@ -14,12 +14,22 @@ const HostVanDetails = () => {
 			});
 	}, [id]);
 
+	const activeStyles = {
+		fontWeight: "bold",
+		textDecoration: "underline",
+		color: "#161616",
+	};
+
 	if (!van) {
 		return <h1>Loading ...</h1>;
 	}
 
 	return (
 		<section>
+			<Link to=".." relative="path" className="back-button">
+				&larr; <span>Back to all vans</span>
+			</Link>
+
 			<div className="host-van-detail-layout-container">
 				<div className="host-van-detail">
 					<img src={van.imageUrl} />
@@ -29,6 +39,21 @@ const HostVanDetails = () => {
 						<h4>${van.price}/day</h4>
 					</div>
 				</div>
+				<nav className="host-van-detail-nav">
+					<NavLink to="." style={({ isActive }) => (isActive ? activeStyles : null)} end>
+						Details
+					</NavLink>
+
+					<NavLink to="pricing" style={({ isActive }) => (isActive ? activeStyles : null)}>
+						Pricing
+					</NavLink>
+
+					<NavLink to="photos" style={({ isActive }) => (isActive ? activeStyles : null)}>
+						Photos
+					</NavLink>
+				</nav>
+
+				<Outlet context={van} />
 			</div>
 		</section>
 	);
