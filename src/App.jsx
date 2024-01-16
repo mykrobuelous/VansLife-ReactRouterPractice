@@ -13,7 +13,7 @@ function App() {
 					#VanLife
 				</Link>
 				<nav>
-					<Link to="/about">About</Link>
+					<Link to="/about">This is to test the changes</Link>
 				</nav>
 			</header>
 			<Routes>
