@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const VanDetails = () => {
 	const { id: VansId } = useParams();
 	const [van, setVan] = useState(null);
+	const { state } = useLocation();
 
 	useEffect(() => {
 		fetch(`/api/vans/${VansId}`)
@@ -16,6 +17,9 @@ const VanDetails = () => {
 
 	return (
 		<div className="van-detail-container">
+			<Link to={`..${state?.search || ""}`} relative="path" className="back-button">
+				&larr; <span>{`Back to ${state?.type || "all"} vans`}</span>
+			</Link>
 			{van ? (
 				<div className="van-detail">
 					<img src={van.imageUrl} />
