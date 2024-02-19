@@ -10,7 +10,7 @@ import Layout from "./components/Layout";
 import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
 import HostLayout from "./pages/Host/HostLayout";
-import Dashboard from "./pages/Host/Dashboard";
+import Dashboard, { dashboardLoader } from "./pages/Host/Dashboard";
 import HostVans, { hostVansLoader } from "./pages/Host/HostVans";
 import HostVanDetails, { hostVanDetailsLoader } from "./pages/Host/HostVanDetails";
 import HostVanPricing from "./pages/Host/HostVanPricing";
@@ -28,16 +28,10 @@ const routes = createRoutesFromElements(
 		<Route index element={<Home />} />
 		<Route path="About" element={<About />} />
 		<Route path="Vans" element={<Vans />} loader={vansLoader} errorElement={<Error />} />
-		<Route path="Vans/:id" element={<VanDetails />} loader={vanDetailsLoader} />
+		<Route path="Vans/:id" element={<VanDetails />} loader={vanDetailsLoader} errorElement={<Error />} />
 
 		<Route path="Host" element={<HostLayout />}>
-			<Route
-				index
-				element={<Dashboard />}
-				loader={async ({ request }) => {
-					return await requireAuth(request);
-				}}
-			/>
+			<Route index element={<Dashboard />} loader={dashboardLoader} />
 			<Route
 				path="Income"
 				element={<Income />}
@@ -52,8 +46,8 @@ const routes = createRoutesFromElements(
 					return await requireAuth(request);
 				}}
 			/>
-			<Route path="Vans" element={<HostVans />} loader={hostVansLoader} />
-			<Route path="Vans/:id" element={<HostVanDetails />} loader={hostVanDetailsLoader}>
+			<Route path="Vans" element={<HostVans />} loader={hostVansLoader} errorElement={<Error />} />
+			<Route path="Vans/:id" element={<HostVanDetails />} loader={hostVanDetailsLoader} errorElement={<Error />}>
 				<Route index element={<HostVanInfo />} />
 				<Route path="pricing" element={<HostVanPricing />} />
 				<Route path="photos" element={<HostVanPhotos />} />

@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
-import { getVans } from "../../api";
+import { getVan } from "../../api";
 
 export const vanDetailsLoader = async ({ params }) => {
-	return getVans(params.id);
+	return getVan(params.id);
 };
 
 const VanDetails = () => {
@@ -19,7 +19,6 @@ const VanDetails = () => {
 
 			<div className="van-detail">
 				<img src={van.imageUrl} />
-				``
 				<i className={`van-type ${van.type} selected`}>{van.type}</i>
 				<h2>{van.name}</h2>
 				<p className="van-price">

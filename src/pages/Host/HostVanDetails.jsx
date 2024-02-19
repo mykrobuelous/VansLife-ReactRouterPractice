@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
-import { getHostVans } from "../../api";
+import { getVan } from "../../api";
 import { requireAuth } from "../../utils";
 
 export const hostVanDetailsLoader = async ({ params, request }) => {
 	const auth = await requireAuth(request);
-	return auth || getHostVans(params.id);
+	return auth || getVan(params.id);
 };
 
 const HostVanDetails = () => {
